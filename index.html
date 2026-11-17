@@ -6322,7 +6322,7 @@ function segMastery(c, f) {
   let h = `<p class="hint2">${T('Cada desafío abre una piel para')} ${T(C.name)}. ${T('Se cumplen al terminar una partida.')}</p><ul class="mlist mast">`;
   for (const [k, t, , sk] of list) { const ok = mastDone(c, k); h += `<li class="${ok ? 'done' : ''}"><span>${t}</span><em style="color:${SKINS[sk].col}">${ok ? '✓ ' : ''}${T('Piel')} ${T(SKINS[sk].name)}</em></li>`; }
   h += `<li class="${SAVE.feats.viaje ? 'done' : ''}"><span>${T('Vence al que sueña el Abismo (con cualquier héroe)')}</span><em style="color:${SKINS.eclipse.col}">${SAVE.feats.viaje ? '✓ ' : ''}${T('Piel')} ${T('Eclipse')}</em></li></ul>`;
-  h += `<h4 class="ucat">${T('Pieles')} · ${done} ${T('de')} 3</h4><div class="skins">` + [null, ...SKIN_ORDER].map(sk => { const open = !sk || skinOpen(c, sk), on = (cur || null) === sk;
+  h += `<h4 class="ucat">${T('Pieles')} · ${done + (SAVE.feats.viaje ? 1 : 0)} ${T('de')} ${SKIN_ORDER.length}</h4><div class="skins">` + [null, ...SKIN_ORDER].map(sk => { const open = !sk || skinOpen(c, sk), on = (cur || null) === sk;
     return `<button class="skin${on ? ' on' : ''}${open ? '' : ' lock'}" data-skin="${sk || ''}" ${open ? '' : 'disabled'} style="--c:${sk ? SKINS[sk].col : '#efeae0'}"><canvas width="64" height="64"></canvas><b>${sk ? T(SKINS[sk].name) : T('Original')}</b></button>`; }).join('') + '</div>';
   $('segBody').innerHTML = h;
   $('segBody').querySelectorAll('[data-skin]').forEach(b => { const sk = b.dataset.skin || null, cv = b.querySelector('canvas'), x = cv.getContext('2d'), M = HM(), nm = c + f + '_idle', CS = M._cell, cw = 118;
